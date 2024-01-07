@@ -1,0 +1,210 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> sql_injection
+Rule 1     sql_injection -> username condition
+Rule 2     sql_injection -> username COMMENT
+Rule 3     condition -> simple_condition
+Rule 4     condition -> complex_condition
+Rule 5     username -> USERNAME
+Rule 6     username -> empty
+Rule 7     empty -> <empty>
+Rule 8     simple_condition -> QUOTE COMMENT
+Rule 9     complex_condition -> QUOTE OR QUOTE VALUE QUOTE EQUAL QUOTE VALUE
+Rule 10    complex_condition -> QUOTE OR QUOTE QUOTE EQUAL QUOTE
+
+Terminals, with rules where they appear
+
+COMMENT              : 2 8
+EQUAL                : 9 10
+OR                   : 9 10
+QUOTE                : 8 9 9 9 9 10 10 10 10
+USERNAME             : 5
+VALUE                : 9 9
+error                : 
+
+Nonterminals, with rules where they appear
+
+complex_condition    : 4
+condition            : 1
+empty                : 6
+simple_condition     : 3
+sql_injection        : 0
+username             : 1 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . sql_injection
+    (1) sql_injection -> . username condition
+    (2) sql_injection -> . username COMMENT
+    (5) username -> . USERNAME
+    (6) username -> . empty
+    (7) empty -> .
+
+    USERNAME        shift and go to state 3
+    COMMENT         reduce using rule 7 (empty -> .)
+    QUOTE           reduce using rule 7 (empty -> .)
+
+    sql_injection                  shift and go to state 1
+    username                       shift and go to state 2
+    empty                          shift and go to state 4
+
+state 1
+
+    (0) S' -> sql_injection .
+
+
+
+state 2
+
+    (1) sql_injection -> username . condition
+    (2) sql_injection -> username . COMMENT
+    (3) condition -> . simple_condition
+    (4) condition -> . complex_condition
+    (8) simple_condition -> . QUOTE COMMENT
+    (9) complex_condition -> . QUOTE OR QUOTE VALUE QUOTE EQUAL QUOTE VALUE
+    (10) complex_condition -> . QUOTE OR QUOTE QUOTE EQUAL QUOTE
+
+    COMMENT         shift and go to state 6
+    QUOTE           shift and go to state 9
+
+    condition                      shift and go to state 5
+    simple_condition               shift and go to state 7
+    complex_condition              shift and go to state 8
+
+state 3
+
+    (5) username -> USERNAME .
+
+    COMMENT         reduce using rule 5 (username -> USERNAME .)
+    QUOTE           reduce using rule 5 (username -> USERNAME .)
+
+
+state 4
+
+    (6) username -> empty .
+
+    COMMENT         reduce using rule 6 (username -> empty .)
+    QUOTE           reduce using rule 6 (username -> empty .)
+
+
+state 5
+
+    (1) sql_injection -> username condition .
+
+    $end            reduce using rule 1 (sql_injection -> username condition .)
+
+
+state 6
+
+    (2) sql_injection -> username COMMENT .
+
+    $end            reduce using rule 2 (sql_injection -> username COMMENT .)
+
+
+state 7
+
+    (3) condition -> simple_condition .
+
+    $end            reduce using rule 3 (condition -> simple_condition .)
+
+
+state 8
+
+    (4) condition -> complex_condition .
+
+    $end            reduce using rule 4 (condition -> complex_condition .)
+
+
+state 9
+
+    (8) simple_condition -> QUOTE . COMMENT
+    (9) complex_condition -> QUOTE . OR QUOTE VALUE QUOTE EQUAL QUOTE VALUE
+    (10) complex_condition -> QUOTE . OR QUOTE QUOTE EQUAL QUOTE
+
+    COMMENT         shift and go to state 10
+    OR              shift and go to state 11
+
+
+state 10
+
+    (8) simple_condition -> QUOTE COMMENT .
+
+    $end            reduce using rule 8 (simple_condition -> QUOTE COMMENT .)
+
+
+state 11
+
+    (9) complex_condition -> QUOTE OR . QUOTE VALUE QUOTE EQUAL QUOTE VALUE
+    (10) complex_condition -> QUOTE OR . QUOTE QUOTE EQUAL QUOTE
+
+    QUOTE           shift and go to state 12
+
+
+state 12
+
+    (9) complex_condition -> QUOTE OR QUOTE . VALUE QUOTE EQUAL QUOTE VALUE
+    (10) complex_condition -> QUOTE OR QUOTE . QUOTE EQUAL QUOTE
+
+    VALUE           shift and go to state 14
+    QUOTE           shift and go to state 13
+
+
+state 13
+
+    (10) complex_condition -> QUOTE OR QUOTE QUOTE . EQUAL QUOTE
+
+    EQUAL           shift and go to state 15
+
+
+state 14
+
+    (9) complex_condition -> QUOTE OR QUOTE VALUE . QUOTE EQUAL QUOTE VALUE
+
+    QUOTE           shift and go to state 16
+
+
+state 15
+
+    (10) complex_condition -> QUOTE OR QUOTE QUOTE EQUAL . QUOTE
+
+    QUOTE           shift and go to state 17
+
+
+state 16
+
+    (9) complex_condition -> QUOTE OR QUOTE VALUE QUOTE . EQUAL QUOTE VALUE
+
+    EQUAL           shift and go to state 18
+
+
+state 17
+
+    (10) complex_condition -> QUOTE OR QUOTE QUOTE EQUAL QUOTE .
+
+    $end            reduce using rule 10 (complex_condition -> QUOTE OR QUOTE QUOTE EQUAL QUOTE .)
+
+
+state 18
+
+    (9) complex_condition -> QUOTE OR QUOTE VALUE QUOTE EQUAL . QUOTE VALUE
+
+    QUOTE           shift and go to state 19
+
+
+state 19
+
+    (9) complex_condition -> QUOTE OR QUOTE VALUE QUOTE EQUAL QUOTE . VALUE
+
+    VALUE           shift and go to state 20
+
+
+state 20
+
+    (9) complex_condition -> QUOTE OR QUOTE VALUE QUOTE EQUAL QUOTE VALUE .
+
+    $end            reduce using rule 9 (complex_condition -> QUOTE OR QUOTE VALUE QUOTE EQUAL QUOTE VALUE .)
+

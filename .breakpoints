@@ -1,0 +1,24 @@
+{
+  "files": {
+    "parser2.py": [
+      {
+        "id": "92279d3e-456b-420f-a987-ab566c545e33",
+        "line": 1,
+        "version": 287,
+        "index": 0
+      },
+      {
+        "id": "175f37b2-2452-43ff-af73-c83763a1030a",
+        "line": 1,
+        "version": 287,
+        "index": 0
+      },
+      {
+        "id": "fe25cbb5-84bc-4dae-ae0c-291bdf9e0af1",
+        "line": 1,
+        "version": 287,
+        "index": 0
+      }
+    ]
+  }
+}
