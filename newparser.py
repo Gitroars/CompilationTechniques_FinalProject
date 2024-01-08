@@ -56,29 +56,37 @@ def p_error(p):
 # Build the parser
 parser = yacc.yacc()
 
+with open('parserinjection.txt', 'r') as file:
+  lines = file.readlines()
+  for line in lines:
+    result = parser.parse(line)
+    if result:
+      print(f" SQL Injection: {line}")
+    else:
+      print(f"Not SQL Injection: {line}")
+
 # Test the parser with some input
-data1 = "'or''='"
-data2 = "'or'1'='1"
-data3 = "user'or'1'='1"
-data4 = "user' or ''='"
-data5 = "admin' or '1'='1"
-data6 = "admin' or ''='"
-data7 = "'--"
-data8 = "user'--"
-data9 = "admin'--"
-data10 = "vsauce34659'or ''='"
-data11 = "vsauce34659' or '3'='3"
-data12 = "vsauce34659'--"
+# data1 = "'or''='"
+# data2 = "'or'1'='1"
+# data3 = "user'or'1'='1"
+# data4 = "user' or ''='"
+# data5 = "admin' or '1'='1"
+# data6 = "admin' or ''='"
+# data7 = "'--"
+# data8 = "user'--"
+# data9 = "admin'--"
+# data10 = "vsauce34659'or ''='"
+# data11 = "vsauce34659' or '3'='3"
+# data12 = "vsauce34659'--"
 
-allData = [
-    data1, data2, data3, data4, data5, data6, data7, data8, data9, data10,
-    data11, data12
-]
+# allData = [
+#     data1, data2, data3, data4, data5, data6, data7, data8, data9, data10,
+#     data11, data12
+# ]
 
-for data in allData:
-  result = parser.parse(data)
-  print(result)
-  if result:
-    print(f" SQL Injection in {data}")
-  else:
-    print(f"No SQL Injection in {data}")
+# for data in allData:
+#   result = parser.parse(data)
+#   if result:
+#     print(f" SQL Injection: {data}")
+#   else:
+#     print(f"Safe SQL: {data}")
