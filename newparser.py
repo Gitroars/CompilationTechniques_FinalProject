@@ -1,6 +1,8 @@
 from lexer import tokens
 from ply import yacc
+import tracemalloc
 
+tracemalloc.start()
 
 def p_sql_injection(p):
   '''
@@ -50,12 +52,15 @@ def p_complex_condition(p):
 
 
 def p_error(p):
-  print(f"Syntax error at token {p.type}")
+  if p:
+      print(f"Syntax error at token {p.type}")
+  else:
+      print("Syntax error at EOF")
 
 
 # Build the parser
 parser = yacc.yacc()
-
+print('---SQL INJECTION---')
 with open('parserinjection.txt', 'r') as file:
   lines = file.readlines()
   for line in lines:
@@ -64,29 +69,22 @@ with open('parserinjection.txt', 'r') as file:
       print(f" SQL Injection: {line}")
     else:
       print(f"Not SQL Injection: {line}")
+      
+print('---NOT SQL INJECTION---')
+with open('parsersafe.txt', 'r') as file:
+  lines = file.readlines()
+  for line in lines:
+    result = parser.parse(line)
+    if result:
+      print(f" SQL Injection: {line}")
+    else:
+      print(f"Not SQL Injection: {line}")
 
-# Test the parser with some input
-# data1 = "'or''='"
-# data2 = "'or'1'='1"
-# data3 = "user'or'1'='1"
-# data4 = "user' or ''='"
-# data5 = "admin' or '1'='1"
-# data6 = "admin' or ''='"
-# data7 = "'--"
-# data8 = "user'--"
-# data9 = "admin'--"
-# data10 = "vsauce34659'or ''='"
-# data11 = "vsauce34659' or '3'='3"
-# data12 = "vsauce34659'--"
 
-# allData = [
-#     data1, data2, data3, data4, data5, data6, data7, data8, data9, data10,
-#     data11, data12
-# ]
+snapshot = tracemalloc.take_snapshot()
+top_stats = snapshot.statistics('lineno')
 
-# for data in allData:
-#   result = parser.parse(data)
-#   if result:
-#     print(f" SQL Injection: {data}")
-#   else:
-#     print(f"Safe SQL: {data}")
+print("[ Top 10 ]")
+for stat in top_stats[:10]:
+    print(stat)
+
